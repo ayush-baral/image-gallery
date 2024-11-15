@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useAllImageList } from "./services";
+import LoadingSkeleton from "./components/LoadingSkeleton";
 
 export interface ImageData {
   id: string;
@@ -9,20 +11,20 @@ export interface ImageData {
   download_url: string;
 }
 
-const generateRandomImages = (count: number): ImageData[] => {
-  const images: ImageData[] = [];
-  for (let i = 0; i < count; i++) {
-    images.push({
-      id: `img-${i}`,
-      author: `Author ${i}`,
-      width: Math.floor(Math.random() * 1000),
-      height: Math.floor(Math.random() * 1000),
-      url: `https://picsum.photos/id/${i}/500/300`,
-      download_url: `https://picsum.photos/id/${i}/500/300`,
-    });
-  }
-  return images;
-};
+// const generateRandomImages = (count: number): ImageData[] => {
+//   const images: ImageData[] = [];
+//   for (let i = 0; i < count; i++) {
+//     images.push({
+//       id: `img-${i}`,
+//       author: `Author ${i}`,
+//       width: Math.floor(Math.random() * 1000),
+//       height: Math.floor(Math.random() * 1000),
+//       url: `https://picsum.photos/id/${i}/500/300`,
+//       download_url: `https://picsum.photos/id/${i}/500/300`,
+//     });
+//   }
+//   return images;
+// };
 
 const ImageCard: React.FC<{ image: ImageData }> = ({ image }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -69,7 +71,9 @@ const ImageCard: React.FC<{ image: ImageData }> = ({ image }) => {
 };
 
 const ImageGallery = () => {
-  const images = generateRandomImages(100);
+  // const images = generateRandomImages(100);
+
+  const { data: images, isLoading: isLoadingImages } = useAllImageList();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
@@ -81,11 +85,19 @@ const ImageGallery = () => {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {images.map((image) => (
-            <ImageCard key={image.id} image={image} />
-          ))}
-        </div>
+        {isLoadingImages ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {Array.from({ length: 10 }).map((_, index) => (
+              <LoadingSkeleton key={index} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {images?.data?.map((image) => (
+              <ImageCard key={image.id} image={image} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

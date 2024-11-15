@@ -11,7 +11,6 @@ export function authRequestInterceptor(config: AxiosRequestConfig) {
 
 export const axios = Axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
 });
 
 axios.interceptors.request.use(authRequestInterceptor as never);
