@@ -1,79 +1,23 @@
-import React, { useState } from "react";
-import { useAllImageList } from "./services";
+import { useState } from "react";
+
 import LoadingSkeleton from "./components/LoadingSkeleton";
+import ImageCard from "./components/ImageCard";
 
-export interface ImageData {
-  id: string;
-  author: string;
-  width: number;
-  height: number;
-  url: string;
-  download_url: string;
-}
-
-// const generateRandomImages = (count: number): ImageData[] => {
-//   const images: ImageData[] = [];
-//   for (let i = 0; i < count; i++) {
-//     images.push({
-//       id: `img-${i}`,
-//       author: `Author ${i}`,
-//       width: Math.floor(Math.random() * 1000),
-//       height: Math.floor(Math.random() * 1000),
-//       url: `https://picsum.photos/id/${i}/500/300`,
-//       download_url: `https://picsum.photos/id/${i}/500/300`,
-//     });
-//   }
-//   return images;
-// };
-
-const ImageCard: React.FC<{ image: ImageData }> = ({ image }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      className="group relative overflow-hidden rounded-xl shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        transform: isHovered ? "translateY(-4px)" : "none",
-      }}
-    >
-      <div className="aspect-[4/3] overflow-hidden">
-        <img
-          src={image.url}
-          alt={image.author}
-          className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
-            isHovered ? "scale-110" : "scale-100"
-          } ${isLoading ? "opacity-0" : "opacity-100"}`}
-          onLoad={() => setIsLoading(false)}
-        />
-      </div>
-
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6 text-white transition-transform duration-300">
-        <h3 className="text-lg font-semibold tracking-wide">{image.author}</h3>
-        <div className="mt-2 flex items-center gap-2 text-sm opacity-80">
-          <span>
-            {image.width}x{image.height}
-          </span>
-          <span className="h-1 w-1 rounded-full bg-white/60"></span>
-          <span>ID: {image.id}</span>
-        </div>
-      </div>
-
-      <div
-        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
-          isHovered ? "opacity-100" : "opacity-0"
-        }`}
-      />
-    </div>
-  );
-};
+import { useAllImageList } from "./services";
 
 const ImageGallery = () => {
-  // const images = generateRandomImages(100);
+  const [page, setPage] = useState(1);
 
-  const { data: images, isLoading: isLoadingImages } = useAllImageList();
+  const limit = 100;
+
+  const { data: images, isLoading: isLoadingImages } = useAllImageList(
+    page,
+    limit
+  );
+
+  const handleNextPage = () => setPage((prevPage) => prevPage + 1);
+  const handlePreviousPage = () =>
+    setPage((prevPage) => Math.max(prevPage - 1, 1));
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
@@ -98,6 +42,27 @@ const ImageGallery = () => {
             ))}
           </div>
         )}
+
+        <div className="mt-8 flex justify-center items-center gap-4">
+          <button
+            className="px-4 py-2 text-white bg-gray-800 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={handlePreviousPage}
+            disabled={page === 1 || isLoadingImages}
+          >
+            Previous
+          </button>
+          <span className="text-gray-700">Page {page}</span>
+          <button
+            className="px-4 py-2 text-white bg-gray-800 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={handleNextPage}
+            disabled={
+              isLoadingImages ||
+              (images?.data?.length ? images?.data?.length < limit : false)
+            }
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
