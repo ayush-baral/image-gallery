@@ -31,7 +31,6 @@ const ImageCard: React.FC<{ image: ImageData }> = ({ image }) => {
             {image.width}x{image.height}
           </span>
           <span className="h-1 w-1 rounded-full bg-white/60"></span>
-          <span>ID: {image.id}</span>
         </div>
       </div>
     </div>
