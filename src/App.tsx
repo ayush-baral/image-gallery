@@ -87,23 +87,11 @@ const ImageGallery = () => {
               ))}
             </div>
           ) : (
-            <div
-              className="relative w-full"
-              style={{ height: `${virtualizer.getTotalSize()}px` }}
-            >
+            <div className="relative flex flex-col gap-4 w-full">
               {virtualizer.getVirtualItems().map((virtualRow) => {
                 const startIndex = virtualRow.index * columns;
                 return (
-                  <div
-                    key={virtualRow.key}
-                    className="absolute left-0 w-full"
-                    style={{
-                      transform: `translateY(${
-                        virtualRow.start - virtualizer.options.scrollMargin
-                      }px)`,
-                      height: `${virtualRow.size}px`,
-                    }}
-                  >
+                  <div key={virtualRow.key} className=" w-full">
                     <div
                       className={`grid gap-4 sm:gap-6 ${
                         columns === 1
