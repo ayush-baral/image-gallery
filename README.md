@@ -1,50 +1,112 @@
-# React + TypeScript + Vite
+### Project Documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### **Overview**
 
-Currently, two official plugins are available:
+This is a React app built using **Vite**, a fast tool for creating and running web projects. The app uses **Tailwind CSS** for styling, **Axios** to fetch data from APIs, and **TanStack Query** to manage data fetching and caching easily.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+### **Technologies Used**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Vite**: Makes development and builds faster.
+- **React**: Used for creating user interfaces.
+- **Tailwind CSS**: For styling the app.
+- **Axios**: To fetch data from APIs.
+- **TanStack Query**: To handle data fetching and caching.
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### **Requirements**
+
+Before starting, make sure you have:
+
+- **Node.js** (version 18 or later)
+- A package manager like **pnpm** (preferred), **npm**, or **yarn**
+
+---
+
+### **How to Set Up and Run**
+
+1. **Clone the Project**
+
+   ```bash
+   git clone https://github.com/ayush-baral/image-gallery.git
+   cd image-gallery
+   ```
+
+2. **Install Dependencies**
+   Run this command to install everything the project needs:
+
+   ```bash
+   pnpm install
+   ```
+
+   If you're using `npm` or `yarn`, you can replace `pnpm` with your package manager.
+
+3. **Start the Development Server**
+   To start the app locally:
+
+   ```bash
+   pnpm dev
+   ```
+
+4. **Build the App**
+   To create a version of the app ready to go live:
+
+   ```bash
+   pnpm build
+   ```
+
+5. **Preview the Built App**
+   To test the production build locally:
+   ```bash
+   pnpm preview
+   ```
+
+---
+
+### **Folder Structure**
+
+- **`src/assets`**
+  - Stores static files like images, icons, and fonts
+- **`src/components`**
+  - Contains reusable UI components
+  - Each component should be modular and independent
+- **`src/config`**
+  - Application configuration files
+  - Environment variables and global settings
+- **`src/lib`**
+  - Utility libraries and helpers
+  - Includes API interceptors and handlers
+- **`src/services`**
+  - API integration files
+  - Handles all external service communications
+- **`src/types`**
+  - TypeScript type definitions
+  - Shared interfaces and types used across the app
+
+---
+
+### **Features**
+
+- **Responsive Design**: Works well on all devices.
+- **Fast Data Fetching**: Uses Axios and caches results with TanStack Query.
+- **Optimized Development**: Vite makes the setup and builds fast and efficient.
+
+---
+
+### **Environment Variables**
+
+You need a `.env` file in the root folder for API URLs and other settings:
+
+```
+VITE_BASE_URL = https://picsum.photos
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### **Common Commands**
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **Start the app**: `pnpm dev`
+- **Build the app**: `pnpm build`
+- **Run production preview**: `pnpm preview`
