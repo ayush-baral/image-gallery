@@ -17,12 +17,13 @@ const ImageCard: React.FC<{ image: ImageData }> = ({ image }) => {
     >
       <div className="aspect-[4/3] overflow-hidden">
         <img
-          src={image.url}
+          src={image.download_url}
           alt={image.author}
           className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
             isHovered ? "scale-110" : "scale-100"
           } ${isLoading ? "opacity-0" : "opacity-100"}`}
           onLoad={() => setIsLoading(false)}
+          loading="lazy"
         />
       </div>
 
