@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import LoadingSkeleton from "./components/LoadingSkeleton";
 import ImageCard from "./components/ImageCard";
@@ -18,6 +18,10 @@ const ImageGallery = () => {
   const handleNextPage = () => setPage((prevPage) => prevPage + 1);
   const handlePreviousPage = () =>
     setPage((prevPage) => Math.max(prevPage - 1, 1));
+
+  useEffect(() => {
+    window.scroll({ top: 0, left: 0, behavior: "smooth" });
+  }, [page]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
