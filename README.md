@@ -1,112 +1,93 @@
-### Project Documentation
+# Image Gallery Project Documentation
 
-#### **Overview**
+## Overview
 
-This is a React app built using **Vite**, a fast tool for creating and running web projects. The app uses **Tailwind CSS** for styling, **Axios** to fetch data from APIs, and **TanStack Query** to manage data fetching and caching easily.
+This is a modern React application built with cutting-edge web development technologies to create an efficient and responsive image gallery. The project leverages powerful tools and libraries to ensure optimal performance and developer experience.
 
----
+## Technology Stack
 
-### **Technologies Used**
+- **Frontend Framework**: React
+- **Build Tool**: Vite (for lightning-fast development and builds)
+- **Styling**: Tailwind CSS
+- **Data Fetching**: 
+  - Axios for API requests
+  - TanStack Query for server state management and caching
+- **List Rendering**: React Window for virtualized list performance
 
-- **Vite**: Makes development and builds faster.
-- **React**: Used for creating user interfaces.
-- **Tailwind CSS**: For styling the app.
-- **Axios**: To fetch data from APIs.
-- **TanStack Query**: To handle data fetching and caching.
+## Prerequisites
 
----
+### System Requirements
+- Node.js (v18+)
+- Package Manager:
+  - pnpm (recommended)
+  - npm
+  - yarn
 
-### **Requirements**
+### Recommended Development Environment
+- Visual Studio Code
+- Latest version of Chrome/Firefox
+- Git 
 
-Before starting, make sure you have:
+## Project Setup
 
-- **Node.js** (version 18 or later)
-- A package manager like **pnpm** (preferred), **npm**, or **yarn**
-
----
-
-### **How to Set Up and Run**
-
-1. **Clone the Project**
-
-   ```bash
-   git clone https://github.com/ayush-baral/image-gallery.git
-   cd image-gallery
-   ```
-
-2. **Install Dependencies**
-   Run this command to install everything the project needs:
-
-   ```bash
-   pnpm install
-   ```
-
-   If you're using `npm` or `yarn`, you can replace `pnpm` with your package manager.
-
-3. **Start the Development Server**
-   To start the app locally:
-
-   ```bash
-   pnpm dev
-   ```
-
-4. **Build the App**
-   To create a version of the app ready to go live:
-
-   ```bash
-   pnpm build
-   ```
-
-5. **Preview the Built App**
-   To test the production build locally:
-   ```bash
-   pnpm preview
-   ```
-
----
-
-### **Folder Structure**
-
-- **`src/assets`**
-  - Stores static files like images, icons, and fonts
-- **`src/components`**
-  - Contains reusable UI components
-  - Each component should be modular and independent
-- **`src/config`**
-  - Application configuration files
-  - Environment variables and global settings
-- **`src/lib`**
-  - Utility libraries and helpers
-  - Includes API interceptors and handlers
-- **`src/services`**
-  - API integration files
-  - Handles all external service communications
-- **`src/types`**
-  - TypeScript type definitions
-  - Shared interfaces and types used across the app
-
----
-
-### **Features**
-
-- **Responsive Design**: Works well on all devices.
-- **Fast Data Fetching**: Uses Axios and caches results with TanStack Query.
-- **Optimized Development**: Vite makes the setup and builds fast and efficient.
-
----
-
-### **Environment Variables**
-
-You need a `.env` file in the root folder for API URLs and other settings:
-
-```
-VITE_BASE_URL = https://picsum.photos
+### 1. Clone the Repository
+```bash
+git clone https://github.com/ayush-baral/image-gallery.git
+cd image-gallery
 ```
 
----
+### 2. Install Dependencies
+```bash
+# Using pnpm (recommended)
+pnpm install
 
-### **Common Commands**
+# Alternative: npm
+npm install
 
-- **Start the app**: `pnpm dev`
-- **Build the app**: `pnpm build`
-- **Run production preview**: `pnpm preview`
+# Alternative: yarn
+yarn install
+```
+
+### 3. Configure Environment
+Create a `.env` file in the project root:
+```
+VITE_BASE_URL=https://picsum.photos
+```
+
+## Development Workflow
+
+### Running the Application
+```bash
+# Start development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
+```
+
+## Folder Structure
+
+```
+src/
+│
+├── assets/         # Static resources
+├── components/     # Reusable UI components
+├── config/         # Application configurations
+├── lib/            # Utility functions
+├── services/       # API service layers
+└── types/          # TypeScript type definitions
+```
+
+### Key Architectural Decisions
+- **Modularity**: Components designed for maximum reusability
+- **Type Safety**: Comprehensive TypeScript type definitions
+- **Performance**: Virtualized rendering for large datasets
+
+## Performance Optimizations
+- Virtualized list rendering with React Window
+- Efficient data fetching and caching via TanStack Query
+- Minimal bundle size with Vite
+
