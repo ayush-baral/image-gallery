@@ -26,11 +26,10 @@ const getColumnCount = (width: number): number => {
 const ImageGallery: React.FC = () => {
   const [page, setPage] = useState(1);
   const [columns, setColumns] = useState(1);
-  const [error, setError] = useState<string | null>(null);
 
   const headerRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
-  const mainRef = useRef<HTMLDivElement>(null);
+  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   const {
     data: images = { data: [] },
@@ -65,10 +64,10 @@ const ImageGallery: React.FC = () => {
   }, [handleResize]);
 
   useEffect(() => {
-    if (fetchError) {
-      setError("Failed to load images: " + fetchError.message);
+    if (imageContainerRef.current) {
+      imageContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [fetchError]);
+  }, [page]);
 
   const Cell = useCallback(
     ({
@@ -98,12 +97,12 @@ const ImageGallery: React.FC = () => {
     [images?.data, columns]
   );
 
-  if (error) {
+  if (fetchError) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-red-100">
         <div className="text-red-600 text-center">
           <h2 className="text-2xl font-bold">Error</h2>
-          <p>{error}</p>
+          <p>{fetchError?.message ?? "Error loading Images"}</p>
         </div>
       </div>
     );
@@ -129,7 +128,7 @@ const ImageGallery: React.FC = () => {
       </header>
 
       <main
-        ref={mainRef}
+        ref={imageContainerRef}
         className="flex-grow px-4 sm:px-6 py-4 overflow-hidden"
         style={{
           height:
